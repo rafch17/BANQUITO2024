@@ -34,7 +34,7 @@ public class InterestRateLog implements Serializable {
     private Integer id;
     @Column(name = "CODE_INTEREST_RATE", length = 8, nullable = false)
     private String codeInterestRate;
-    @Column(name = "VALUE", precision = 17, scale = 2, nullable = false)
+    @Column(name = "VALUE", precision = 5, scale = 2, nullable = false)
     private BigDecimal value;
     @Temporal(TemporalType.DATE)
     @Column(name = "START_DATE", nullable = false)

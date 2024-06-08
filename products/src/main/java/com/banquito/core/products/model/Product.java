@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,13 +35,15 @@ public class Product implements Serializable {
     private String codeSegment;
     @Column(name = "STATE", length = 3, nullable = false)
     private String state;
+    @Temporal(TemporalType.DATE)
     @Column(name = "START_DATE", nullable = false)
     private Date startDate;
+    @Temporal(TemporalType.DATE)
     @Column(name = "END_DATE")
     private Date endDate;
     @Column(name = "ALLOW_DEBIT_CARD")
     private String allowDebitCard;
-    @Column(name = "ALOOW_TRANSFERENCES")
+    @Column(name = "ALLOW_TRANSFERENCES")
     private String allowTransferences;
     @Column(name = "MINIMUM_OPENING_BALANCE", precision = 17, scale = 2, nullable = false)
     private BigDecimal minimumOpeningBalance;

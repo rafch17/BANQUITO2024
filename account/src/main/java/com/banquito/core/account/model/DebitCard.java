@@ -39,7 +39,7 @@ public class DebitCard implements Serializable {
     private String cardNumber;
     @Column(name = "CCV", length = 3, nullable = false)
     private String ccv;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "EXPIRATION_DATE", nullable = false)
     private Timestamp expiration_Date;
     @Column(name = "CARDHOLDER_NAME", length = 50, nullable = false)
@@ -62,8 +62,6 @@ public class DebitCard implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((clientId == null) ? 0 : clientId.hashCode());
-        result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
         return result;
     }
 
@@ -80,16 +78,6 @@ public class DebitCard implements Serializable {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
-            return false;
-        if (clientId == null) {
-            if (other.clientId != null)
-                return false;
-        } else if (!clientId.equals(other.clientId))
-            return false;
-        if (accountId == null) {
-            if (other.accountId != null)
-                return false;
-        } else if (!accountId.equals(other.accountId))
             return false;
         return true;
     }

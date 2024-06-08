@@ -31,9 +31,6 @@ public class Segment implements Serializable {
     @Column(name = "DESCRIPTION", length = 500)
     private String description;
 
-    /*@OneToMany(mappedBy = "client")//revisar onetomany
-    private List<Client> clients;*/
-
     public Segment(String code) {
         this.code = code;
     }

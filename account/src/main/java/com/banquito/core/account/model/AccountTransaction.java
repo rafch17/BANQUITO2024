@@ -3,7 +3,6 @@ package com.banquito.core.account.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +26,6 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "ACCOUNT_TRANSACTION")
-
 public class AccountTransaction implements Serializable {
 
     @Id
@@ -78,11 +76,8 @@ public class AccountTransaction implements Serializable {
     @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "ACCOUNT_ID", insertable = false, updatable = false)
     private Account account;
 
-    public AccountTransaction(Integer id, Integer accountId, String codeChannel, String uniqueKey) {
+    public AccountTransaction(Integer id) {
         this.id = id;
-        this.accountId = accountId;
-        this.codeChannel = codeChannel;
-        this.uniqueKey = uniqueKey;
     }
 
     @Override
@@ -90,9 +85,6 @@ public class AccountTransaction implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
-        result = prime * result + ((codeChannel == null) ? 0 : codeChannel.hashCode());
-        result = prime * result + ((uniqueKey == null) ? 0 : uniqueKey.hashCode());
         return result;
     }
 
@@ -109,21 +101,6 @@ public class AccountTransaction implements Serializable {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
-            return false;
-        if (accountId == null) {
-            if (other.accountId != null)
-                return false;
-        } else if (!accountId.equals(other.accountId))
-            return false;
-        if (codeChannel == null) {
-            if (other.codeChannel != null)
-                return false;
-        } else if (!codeChannel.equals(other.codeChannel))
-            return false;
-        if (uniqueKey == null) {
-            if (other.uniqueKey != null)
-                return false;
-        } else if (!uniqueKey.equals(other.uniqueKey))
             return false;
         return true;
     }

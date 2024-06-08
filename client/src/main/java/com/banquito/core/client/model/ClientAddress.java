@@ -41,7 +41,7 @@ public class ClientAddress implements Serializable {
     @Column(name = "LONGITUDE")
     private Float longitude;
     @Column(name = "ZIP_CODE", length = 10)
-    private String zipCode; 
+    private String zipCode;
     @Column(name = "IS_DEFAULT", nullable = false)
     private Boolean isDefault;
     @Column(name = "STATE", length = 3, nullable = false)
@@ -50,8 +50,6 @@ public class ClientAddress implements Serializable {
     @ManyToOne
     @JoinColumn(name = "CLIENT_ID", referencedColumnName = "CLIENT_ID", insertable = false, updatable = false)
     private Client client;
-
-    
 
     public ClientAddress(Integer id) {
         this.id = id;

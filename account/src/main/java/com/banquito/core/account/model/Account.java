@@ -67,15 +67,8 @@ public class Account implements Serializable {
     @Column(name = "CLOSED_DATE")
     private Timestamp closeDate;
 
-    @OneToMany(mappedBy = "account")
-    private List<DebitCard> debitCards;
-
-
-    public Account(Integer id, String codeProductType, String codeProduct, Integer clientId) {
+    public Account(Integer id) {
         this.id = id;
-        this.codeProductType = codeProductType;
-        this.codeProduct = codeProduct;
-        this.clientId = clientId;
     }
 
     @Override
@@ -83,9 +76,6 @@ public class Account implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((codeProductType == null) ? 0 : codeProductType.hashCode());
-        result = prime * result + ((codeProduct == null) ? 0 : codeProduct.hashCode());
-        result = prime * result + ((clientId == null) ? 0 : clientId.hashCode());
         return result;
     }
 
@@ -102,21 +92,6 @@ public class Account implements Serializable {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
-            return false;
-        if (codeProductType == null) {
-            if (other.codeProductType != null)
-                return false;
-        } else if (!codeProductType.equals(other.codeProductType))
-            return false;
-        if (codeProduct == null) {
-            if (other.codeProduct != null)
-                return false;
-        } else if (!codeProduct.equals(other.codeProduct))
-            return false;
-        if (clientId == null) {
-            if (other.clientId != null)
-                return false;
-        } else if (!clientId.equals(other.clientId))
             return false;
         return true;
     }

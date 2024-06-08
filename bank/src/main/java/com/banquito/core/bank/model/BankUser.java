@@ -1,7 +1,6 @@
 package com.banquito.core.bank.model;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
@@ -31,10 +30,10 @@ public class BankUser implements Serializable {
     @Column(name = "BANK_USER_ID", nullable = false)
     private Long id;
     @Column(name = "CODE_BANK", nullable = false)
-    private Long codeBank;
+    private String codeBank;
     @Column(name = "CODE_ROLE", nullable = false)
-    private Long codeRole;
-    @Column(name = "USER_NAME", length = 50, nullable = false)
+    private String codeRole;
+    @Column(name = "USER_NAME", length = 20, nullable = false)
     private String username;
     @Column(name = "FIRST_NAME", length = 50, nullable = false)
     private String firstName;
@@ -52,7 +51,7 @@ public class BankUser implements Serializable {
     @Column(name = "STATE", length = 3, nullable = false)
     private String state;
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "LAST_LOGIN", nullable = false)
+    @Column(name = "LAST_LOGIN")
     private Timestamp lastLogin;
     @Column(name = "EMAIL", length = 100, nullable = false)
     private String email;
