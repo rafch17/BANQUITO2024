@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.banquito.core.bank.model.Bank;
+import com.banquito.core.bank.model.Channel;
 import com.banquito.core.bank.model.Role;
 import com.banquito.core.bank.repository.BankRepository;
 import com.banquito.core.bank.repository.ChannelRepository;
@@ -38,12 +39,25 @@ public class CommonBankService {
         return this.roleRepository.findAll();
     }
 
-    public Role obtainRole(String id) {
-        Optional<Role> roleOpt = this.roleRepository.findById(id);
+    public Role obtainRole(String code) {
+        Optional<Role> roleOpt = this.roleRepository.findById(code);
         if (roleOpt.isPresent()) {
             return roleOpt.get();
         } else {
-            throw new RuntimeException("No existe el role con id: "+id);
+            throw new RuntimeException("No existe el rol con code: "+code);
+        }
+    }
+
+    public List<Channel> obtainAllChannels() {
+       return this.channelRepository.findAllByOrderByName();
+    }
+
+    public Channel obtainChannel(String code) {
+        Optional<Channel> channelOpt = this.channelRepository.findById(code);
+        if (channelOpt.isPresent()) {
+            return channelOpt.get();
+        } else {
+            throw new RuntimeException("No existe el canal con codigo: "+code);
         }
     }
 }
