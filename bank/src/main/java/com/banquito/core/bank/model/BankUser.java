@@ -2,6 +2,7 @@ package com.banquito.core.bank.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -47,7 +48,7 @@ public class BankUser implements Serializable {
     private String password;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATION_DATE", nullable = false)
-    private Timestamp creationDate;
+    private Date creationDate;
     @Column(name = "STATE", length = 3, nullable = false)
     private String state;
     @Temporal(TemporalType.TIMESTAMP)
