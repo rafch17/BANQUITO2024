@@ -1,5 +1,10 @@
 package com.banquito.core.bank.controller;
 
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,19 +13,15 @@ import com.banquito.core.bank.model.Role;
 import com.banquito.core.bank.service.CommonBankService;
 import com.banquito.core.bank.util.mapper.RoleMapper;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.List;
-
 @RestController
 @RequestMapping(path = "/roles")
 public class RoleController {
 
+    private final RoleMapper roleMapper;
     private final CommonBankService service;
 
-    public RoleController(CommonBankService service) {
+    public RoleController(RoleMapper roleMapper, CommonBankService service) {
+        this.roleMapper = roleMapper;
         this.service = service;
     }
 
@@ -33,7 +34,7 @@ public class RoleController {
     public ResponseEntity<RoleDTO> getByCode(@PathVariable String code) {
         try {
             Role role = this.service.obtainRole(code);
-            RoleDTO dto = RoleMapper.from(role);
+            RoleDTO dto = this.roleMapper.buildDTO(role, new RoleDTO());
             return ResponseEntity.ok(dto);
         } catch (RuntimeException rte) {
             return ResponseEntity.notFound().build();
