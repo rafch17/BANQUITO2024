@@ -34,8 +34,7 @@ public class RoleController {
     public ResponseEntity<RoleDTO> getByCode(@PathVariable String code) {
         try {
             Role role = this.service.obtainRole(code);
-            RoleDTO dto = this.roleMapper.buildDTO(role, new RoleDTO());
-            return ResponseEntity.ok(dto);
+            return ResponseEntity.ok(this.roleMapper.toDTO(role));
         } catch (RuntimeException rte) {
             return ResponseEntity.notFound().build();
         }

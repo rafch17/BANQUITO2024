@@ -9,15 +9,10 @@ import org.mapstruct.ReportingPolicy;
 import com.banquito.core.bank.controller.dto.RoleDTO;
 import com.banquito.core.bank.model.Role;
 
-@Mapper(
-        componentModel = MappingConstants.ComponentModel.SPRING,
-        unmappedTargetPolicy = ReportingPolicy.IGNORE
-)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface RoleMapper {
 
-    
-    RoleDTO buildDTO(Role role, @MappingTarget RoleDTO roleDTO);
+    RoleDTO toDTO(Role role);
 
-    //@Mapping(target = "id", ignore = true)
-    Role buildPersistence(RoleDTO dto, @MappingTarget Role role);
+    Role toPersistence(RoleDTO dto);
 }

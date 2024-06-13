@@ -7,15 +7,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.core.bank.controller.dto.BankUserDTO;
+import com.banquito.core.bank.controller.dto.UserPasswordDTO;
 import com.banquito.core.bank.model.BankUser;
 import com.banquito.core.bank.service.BankUserService;
 import com.banquito.core.bank.util.mapper.BankUserMapper;
+
+import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping(path = "/users")
@@ -85,4 +89,25 @@ public class UserBankController {
         }
     }
 
+    @PutMapping("/changePassword")
+    public ResponseEntity<Void> changePassword(@RequestBody UserPasswordDTO dto) {
+        System.out.println("Va a Cambiar clave para: "+dto.toString());
+        try {
+            this.service.changePassword(dto);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException rte) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("/generatePassword/{userName}")
+    public ResponseEntity<Void> generatePassword(@PathVariable("userName") String userName) {
+        System.out.println("Va a generar clave para: "+userName);
+        try {
+            this.service.generatePassword(userName);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException rte) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

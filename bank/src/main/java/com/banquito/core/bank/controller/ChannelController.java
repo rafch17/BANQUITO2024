@@ -1,5 +1,6 @@
 package com.banquito.core.bank.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,10 @@ public class ChannelController {
     @GetMapping
     public ResponseEntity<List<ChannelDTO>> getAll() {
         List<Channel> channels = this.service.obtainAllChannels();
-        return ResponseEntity.ok(channels.stream().map(c -> this.channelMapper.toDTO(c)).collect(Collectors.toList()));
+        return ResponseEntity.ok(
+                channels.stream()
+                        .map(c -> this.channelMapper.toDTO(c))
+                        .collect(Collectors.toList()));
     }
 
     @GetMapping("/{code}")

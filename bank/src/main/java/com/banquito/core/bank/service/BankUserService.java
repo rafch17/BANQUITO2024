@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 
 import com.banquito.core.bank.controller.dto.BankUserDTO;
+import com.banquito.core.bank.controller.dto.UserPasswordDTO;
 import com.banquito.core.bank.model.Bank;
 import com.banquito.core.bank.model.BankUser;
 import com.banquito.core.bank.repository.BankRepository;
@@ -65,29 +67,41 @@ public class BankUserService {
         if (this.repository.findByEmail(dto.getEmail()) != null) {
             throw new RuntimeException("Email repetido");
         }
-        /*
-        BankUser user = new BankUser();
-        user.setCodeRole(dto.getCodeRole());
-        user.setUsername(dto.getUserName());
-        user.setEmail(dto.getEmail());
-        user.setFirstName(dto.getFirstName());
-        user.setFullName(dto.getFullName());
-        user.setLastName(dto.getLastName());
-        */
         BankUser user = this.bankUserMapper.toPersistence(dto);
         Bank bank = this.bankRepository.findAll().getFirst();
         user.setCodeBank(bank.getCode());
         user.setState("BLO");
         user.setTypeUser("TEL");
         user.setCreationDate(LocalDateTime.now());
-        //Generacion de password
+        //TODO: Generacion de password
         user.setPassword("CambiarClave1");
-        BankUser userCreated =  this.repository.save(user);
+        BankUser userCreated = this.repository.save(user);
         return this.bankUserMapper.toDTO(userCreated);
     }
 
     public List<BankUser> obtainByLastName(String lastName) {
         return this.repository.findTop100ByLastNameLikeOrderByLastNameAscFirstNameAsc(lastName);
+    }
+
+    public void changePassword(UserPasswordDTO userPassword) {
+        BankUser user = this.repository.findByUsername(userPassword.getUserName());
+        if (user == null) {
+            throw new RuntimeException("No existe el usuario: "+userPassword.getUserName());
+        }
+        user.setPassword(userPassword.getPassword());
+        this.repository.save(user);
+    }
+    
+    public void generatePassword(String userName) {
+        BankUser user = this.repository.findByUsername(userName);
+        if (user == null) {
+            throw new RuntimeException("No existe el usuario: "+userName);
+        }
+        //TODO: Generar clave
+        String password = "GenerarClave2";
+        String md5Hex = DigestUtils.md5Hex(password);
+        user.setPassword(md5Hex);
+        this.repository.save(user);
     }
 
 }
